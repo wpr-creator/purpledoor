@@ -1,0 +1,25 @@
+{
+  "nodes": [
+    { "name": "Purple Door Landing", "kind": "helper", "scene": "The gatekeeper offers a shiny park key." },
+    { "name": "Clock Garden", "kind": "challenge", "category": "time" },
+    { "name": "Coin Bridge", "kind": "challenge", "category": "money" },
+    { "name": "Weather Hill", "kind": "choice", "category": "weather" },
+    { "name": "Maple Map Gate", "kind": "challenge", "category": "maps" },
+    { "name": "Data Pond", "kind": "challenge", "category": "data" },
+    { "name": "Civics Cabin", "kind": "challenge", "category": "community" },
+    { "name": "Starlight Chest", "kind": "chest", "cost": 3 },
+    { "name": "Park Tower", "kind": "final", "category": "science" }
+  ],
+  "rewards": ["Moon Moth Sticker", "Brass Leaf Key", "Cloud Fox Companion", "Purple Lantern", "Acorn Map Piece", "River Stone Badge"],
+  "questions": [
+    { "id":"time-1", "category":"time", "type":"multiple", "prompt":"The clock shows 3:25. What will the minute hand point to?", "answer":"5", "choices":[{"label":"5"},{"label":"3"},{"label":"6"},{"label":"25"}] },
+    { "id":"time-2", "category":"time", "type":"multiple", "prompt":"A walk starts at 9:10 and ends at 9:25. How many minutes did the walk last?", "answer":"15 minutes", "choices":[{"label":"10 minutes"},{"label":"15 minutes"},{"label":"20 minutes"},{"label":"25 minutes"}] },
+    { "id":"money-1", "category":"money", "type":"multiple", "prompt":"You have 2 dimes and 3 pennies. How much money is that?", "answer":"23 cents", "choices":[{"label":"13 cents"},{"label":"23 cents"},{"label":"32 cents"},{"label":"35 cents"}] },
+    { "id":"money-2", "category":"money", "type":"multiple", "prompt":"A shell costs 45 cents. You pay with 50 cents. How much change should you get?", "answer":"5 cents", "choices":[{"label":"5 cents"},{"label":"10 cents"},{"label":"15 cents"},{"label":"95 cents"}] },
+    { "id":"weather-1", "category":"weather", "type":"multiple", "prompt":"Dark clouds are moving in and the air feels cooler. What is the best choice before going outside?", "answer":"Bring a jacket or raincoat", "choices":[{"label":"Bring a jacket or raincoat"},{"label":"Leave everything outside"},{"label":"Water the sidewalk"},{"label":"Wear only sandals"}] },
+    { "id":"maps-1", "category":"maps", "type":"multiple", "prompt":"On a map, the library is north of the park. Which way would you travel from the park to the library?", "answer":"North", "choices":[{"label":"North"},{"label":"South"},{"label":"East"},{"label":"West"}] },
+    { "id":"data-1", "category":"data", "type":"multiple", "prompt":"A class graph shows 8 votes for apples, 5 for grapes, and 3 for oranges. Which fruit got the most votes?", "answer":"Apples", "choices":[{"label":"Apples"},{"label":"Grapes"},{"label":"Oranges"},{"label":"They tied"}] },
+    { "id":"community-1", "category":"community", "type":"multiple", "prompt":"A class is choosing a game fairly. Which choice helps everyone have a voice?", "answer":"Let students vote", "choices":[{"label":"Let one person pick every time"},{"label":"Let students vote"},{"label":"Hide the choices"},{"label":"Stop playing games"}] },
+    { "id":"science-1", "category":"science", "type":"multiple", "prompt":"A young plant needs light, water, and space. What should you do if it is wilting in dry soil?", "answer":"Water it and place it near light", "choices":[{"label":"Water it and place it near light"},{"label":"Put it in a dark closet"},{"label":"Cover it with a box"},{"label":"Take away the soil"}] }
+  ]
+}

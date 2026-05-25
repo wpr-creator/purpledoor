@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portal Park</title>
+  <link rel="stylesheet" href="../css/global.css" />
+  <link rel="stylesheet" href="../css/ui.css" />
+</head>
+<body class="page">
+  <main class="park-shell">
+    <div class="park-top">
+      <a class="back-link" href="../index.html">Return to the Purple Door</a>
+      <div class="inventory" aria-label="Inventory">
+        <span class="pill">Gems: <span id="gems">0</span></span>
+        <span class="pill">Keys: <span id="keys">0</span></span>
+        <span class="pill">Finds: <span id="finds">0</span></span>
+      </div>
+    </div>
+
+    <section class="game-card">
+      <h1>Portal Park</h1>
+      <div class="map-board">
+        <div id="nodePath" class="node-path" aria-label="Park path"></div>
+        <aside class="event-panel">
+          <div id="scene" class="event-scene">The purple gate hums softly.</div>
+          <div class="challenge-box">
+            <div id="prompt" class="prompt">Choose a path to begin.</div>
+            <div id="choices" class="choices"></div>
+            <div id="feedback" class="feedback" aria-live="polite"></div>
+            <div class="actions">
+              <button id="nextBtn" class="action-btn gold" type="button">Walk Forward</button>
+              <button id="hintBtn" class="action-btn" type="button">Spend 1 Gem for a Hint</button>
+              <button id="resetBtn" class="action-btn" type="button">Begin Again</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <script src="../js/save.js"></script>
+  <script src="../js/questionEngine.js"></script>
+  <script src="../js/gameHelpers.js"></script>
+  <script>
+    let world;
+    let save = Save.load();
+    let currentQuestion = null;
+    let answered = false;
+
+    const nodePath = document.getElementById("nodePath");
+    const choices = document.getElementById("choices");
+    const nextBtn = document.getElementById("nextBtn");
+    const hintBtn = document.getElementById("hintBtn");
+    const resetBtn = document.getElementById("resetBtn");
+
+    function renderInventory(){
+      setText("gems", save.gems);
+      setText("keys", save.keys);
+      setText("finds", save.stickers.length + save.companions.length + save.decorations.length);
+    }
+
+    function renderMap(){
+      nodePath.innerHTML = "";
+      world.nodes.forEach((node, index) => {
+        const div = document.createElement("div");
+        div.className = "node" + (index === save.portalNode ? " current" : "") + (index > save.portalNode + 1 ? " locked" : "");
+        div.textContent = node.name;
+        nodePath.appendChild(div);
+      });
+    }
+
+    function grantReward(){
+      const reward = world.rewards[Math.floor(Math.random() * world.rewards.length)];
+      if(!save.stickers.includes(reward)) save.stickers.push(reward);
+      save.gems += 2;
+      if(Math.random() > .55) save.keys += 1;
+      save = Save.write(save);
+      return reward;
+    }
+
+    function showNode(){
+      answered = false;
+      choices.innerHTML = "";
+      setText("feedback", "");
+      const node = world.nodes[save.portalNode];
+      setText("scene", node.name);
+
+      if(node.kind === "helper"){
+        setText("prompt", "A friendly pathkeeper gives you a park key and points toward the glowing trail.");
+        if(save.keys < 1){ save.keys = 1; save = Save.write(save); }
+        renderInventory();
+        return;
+      }
+
+      if(node.kind === "chest"){
+        setText("prompt", `A carved chest waits beside the trail. It needs ${node.cost} gems to open.`);
+        const open = makeButton("Open the chest", "choice-btn");
+        open.addEventListener("click", () => {
+          if(save.gems >= node.cost){
+            save.gems -= node.cost;
+            const reward = grantReward();
+            setText("feedback", `The chest opens. You found ${reward}.`);
+            answered = true;
+            renderInventory();
+          } else {
+            setText("feedback", "You need more gems before the chest will open.");
+          }
+        });
+        choices.appendChild(open);
+        return;
+      }
+
+      currentQuestion = QuestionEngine.pick(world.questions, { category: node.category });
+      setText("prompt", currentQuestion.prompt);
+      currentQuestion.choices.forEach(choice => {
+        const button = makeButton(choice.label);
+        button.addEventListener("click", () => checkAnswer(choice.label));
+        choices.appendChild(button);
+      });
+    }
+
+    function checkAnswer(answer){
+      if(answered) return;
+      if(QuestionEngine.isCorrect(currentQuestion, answer)){
+        const reward = grantReward();
+        setText("feedback", `Path opened. You earned 2 gems and found ${reward}.`);
+        answered = true;
+      } else {
+        if(save.gems > 0){
+          save.gems -= 1;
+          setText("feedback", "The path shimmered, but stayed closed. A gem helped you try again.");
+        } else {
+          setText("feedback", "The path stayed closed. Try a different choice.");
+        }
+        save = Save.write(save);
+      }
+      renderInventory();
+    }
+
+    nextBtn.addEventListener("click", () => {
+      const node = world.nodes[save.portalNode];
+      if(node.kind !== "helper" && node.kind !== "chest" && !answered){
+        setText("feedback", "Solve this trail challenge first.");
+        return;
+      }
+      if(save.portalNode < world.nodes.length - 1){ save.portalNode += 1; }
+      else { save.portalNode = 0; }
+      save = Save.write(save);
+      renderInventory();
+      renderMap();
+      showNode();
+    });
+
+    hintBtn.addEventListener("click", () => {
+      if(!currentQuestion || answered){ setText("feedback", "The trail is already clear."); return; }
+      if(save.gems < 1){ setText("feedback", "You need 1 gem for a hint."); return; }
+      save.gems -= 1;
+      save = Save.write(save);
+      renderInventory();
+      setText("feedback", "Hint: read every choice slowly, then remove one that cannot fit.");
+    });
+
+    resetBtn.addEventListener("click", () => {
+      save = Save.reset();
+      renderInventory();
+      renderMap();
+      showNode();
+    });
+
+    getJSON("../data/portalpark.json").then(data => {
+      world = data;
+      renderInventory();
+      renderMap();
+      showNode();
+    });
+  </script>
+</body>
+</html>
