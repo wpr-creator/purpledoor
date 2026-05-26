@@ -1,67 +1,60 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>The Purple Door Universe</title>
-  <link rel="stylesheet" href="css/global.css" />
-  <link rel="stylesheet" href="css/ui.css" />
+  <link rel="stylesheet" href="css/global.css">
 </head>
-<body class="home-page">
-  <div class="starfield" aria-hidden="true">
-    <span></span><span></span><span></span><span></span><span></span><span></span>
-  </div>
+<body>
+  <main class="home-shell">
+    <section class="hero">
+      <p class="eyebrow">Mrs. Rogers’ Room Presents</p>
+      <h1>The Purple Door Universe</h1>
+    </section>
 
-  <header class="hero-header">
-    <p class="eyebrow">Mrs. Rogers’ Room Presents</p>
-    <h1>The Purple Door Universe</h1>
-  </header>
-
-  <main class="universe-shell">
-    <section class="door-stage" aria-label="Choose a world">
-      <div class="cosmic-orbit orbit-one" aria-hidden="true"></div>
-      <div class="cosmic-orbit orbit-two" aria-hidden="true"></div>
-
-      <a class="world-card word-card" href="games/wordquest.html" aria-label="Enter Word Quest">
-        <img class="world-panel" src="assets/kenney/ui/UI Adventure Pack/PNG/panel_brown.png" alt="" />
-        <div class="world-content">
-          <img class="world-icon" src="assets/kenney/ui/UI Pack/PNG/Yellow/Default/star.png" alt="" />
-          <h2>Word Quest</h2>
-          <p>Open story gates</p>
-        </div>
-      </a>
-
-      <a class="world-card math-card" href="games/mathquest.html" aria-label="Enter Math Quest">
-        <img class="world-panel" src="assets/kenney/ui/UI Adventure Pack/PNG/panel_blue.png" alt="" />
-        <div class="world-content">
-          <img class="world-icon" src="assets/kenney/ui/UI Pack - Adventure/PNG/Default/minimap_icon_jewel_yellow.png" alt="" />
-          <h2>Math Quest</h2>
-          <p>Power up numbers</p>
-        </div>
-      </a>
-
-      <div class="purple-door" aria-hidden="true">
-        <div class="door-glow"></div>
-        <div class="door-shape">
-          <div class="door-window"></div>
-          <div class="door-arches"><span></span><span></span></div>
-          <div class="door-knob"></div>
-        </div>
-        <div class="door-shadow"></div>
+    <section class="universe-board" aria-label="Choose a world">
+      <div class="starscape" aria-hidden="true">
+        <span class="star star-a"></span>
+        <span class="star star-b"></span>
+        <span class="star star-c"></span>
+        <span class="star star-d"></span>
+        <span class="star star-e"></span>
       </div>
 
-      <a class="world-card wonder-card" href="games/portalpark.html" aria-label="Enter Wonder Trails">
-        <img class="world-panel" src="assets/kenney/ui/UI Adventure Pack/PNG/panel_beigeLight.png" alt="" />
-        <div class="world-content dark-text">
-          <img class="world-icon" src="assets/kenney/ui/UI Pack - Adventure/PNG/Default/minimap_compass_toon_n.png" alt="" />
-          <h2>Wonder Trails</h2>
-          <p>Discover new paths</p>
+      <div class="center-door" aria-hidden="true">
+        <div class="door-glow"></div>
+        <div class="door">
+          <div class="door-window"></div>
+          <div class="door-panel left"></div>
+          <div class="door-panel right"></div>
+          <div class="door-knob"></div>
         </div>
-      </a>
+        <div class="door-step"></div>
+      </div>
 
-      <img class="space-prop prop-star-a" src="assets/kenney/ui/UI Pack/PNG/Yellow/Default/star_outline_depth.png" alt="" aria-hidden="true" />
-      <img class="space-prop prop-gem-a" src="assets/kenney/ui/UI Pack - Adventure/PNG/Default/minimap_icon_jewel_white.png" alt="" aria-hidden="true" />
-      <img class="space-prop prop-gem-b" src="assets/kenney/ui/UI Pack - Adventure/PNG/Default/minimap_icon_jewel_red.png" alt="" aria-hidden="true" />
+      <nav class="world-row">
+        <a class="world-card word" href="games/wordquest.html">
+          <img class="card-frame" src="assets/kenney/ui/UI Adventure Pack/PNG/panel_blue.png" alt="">
+          <span class="world-icon">Aa</span>
+          <strong>Word Quest</strong>
+          <span>Open story gates</span>
+        </a>
+
+        <a class="world-card math" href="games/mathquest.html">
+          <img class="card-frame" src="assets/kenney/ui/UI Adventure Pack/PNG/panel_beigeLight.png" alt="">
+          <span class="world-icon">123</span>
+          <strong>Math Quest</strong>
+          <span>Power up number skills</span>
+        </a>
+
+        <a class="world-card wonder" href="games/portalpark.html">
+          <img class="card-frame" src="assets/kenney/ui/UI Adventure Pack/PNG/panel_brown.png" alt="">
+          <span class="world-icon">★</span>
+          <strong>Wonder Trails</strong>
+          <span>Find hidden discoveries</span>
+        </a>
+      </nav>
     </section>
   </main>
 </body>
