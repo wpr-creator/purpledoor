@@ -1,179 +1,105 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Portal Park</title>
-  <link rel="stylesheet" href="../css/global.css" />
-  <link rel="stylesheet" href="../css/ui.css" />
+  <link rel="stylesheet" href="../css/game.css">
 </head>
-<body class="page">
-  <main class="park-shell">
-    <div class="park-top">
-      <a class="back-link" href="../index.html">Return to the Purple Door</a>
-      <div class="inventory" aria-label="Inventory">
-        <span class="pill">Gems: <span id="gems">0</span></span>
-        <span class="pill">Keys: <span id="keys">0</span></span>
-        <span class="pill">Finds: <span id="finds">0</span></span>
-      </div>
-    </div>
-
-    <section class="game-card">
+<body class="game-shell">
+  <header class="game-topbar">
+    <div class="game-title">
       <h1>Portal Park</h1>
-      <div class="map-board">
-        <div id="nodePath" class="node-path" aria-label="Park path"></div>
-        <aside class="event-panel">
-          <div id="scene" class="event-scene">The purple gate hums softly.</div>
-          <div class="challenge-box">
-            <div id="prompt" class="prompt">Choose a path to begin.</div>
-            <div id="choices" class="choices"></div>
-            <div id="feedback" class="feedback" aria-live="polite"></div>
-            <div class="actions">
-              <button id="nextBtn" class="action-btn gold" type="button">Walk Forward</button>
-              <button id="hintBtn" class="action-btn" type="button">Spend 1 Gem for a Hint</button>
-              <button id="resetBtn" class="action-btn" type="button">Begin Again</button>
-            </div>
-          </div>
-        </aside>
+      <p>Choose a stop, solve the challenge, and collect spark gems.</p>
+    </div>
+    <div class="inventory-pill">
+      <img src="../assets/kenney/ui/UI Pack - Adventure/PNG/Default/minimap_icon_jewel_yellow.png" alt="">
+      <span id="gemCount">0</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="map-stage" id="mapStage" aria-label="Portal Park map">
+      <div class="map-path"></div>
+    </section>
+
+    <section class="event-panel" id="eventPanel">
+      <h2>Welcome to the path.</h2>
+      <p>Pick a glowing stop on the map.</p>
+      <div class="choice-row">
+        <a class="back-link" href="../index.html">Return to the Purple Door</a>
       </div>
     </section>
   </main>
 
-  <script src="../js/save.js"></script>
-  <script src="../js/questionEngine.js"></script>
-  <script src="../js/gameHelpers.js"></script>
+  <script src="../js/assetRegistry.js"></script>
+  <script src="../js/spriteEngine.js"></script>
   <script>
-    let world;
-    let save = Save.load();
-    let currentQuestion = null;
-    let answered = false;
+    const stage = document.querySelector('#mapStage');
+    const panel = document.querySelector('#eventPanel');
+    const gemCount = document.querySelector('#gemCount');
+    let gems = Number(localStorage.getItem('portalParkGems') || 0);
+    gemCount.textContent = gems;
 
-    const nodePath = document.getElementById("nodePath");
-    const choices = document.getElementById("choices");
-    const nextBtn = document.getElementById("nextBtn");
-    const hintBtn = document.getElementById("hintBtn");
-    const resetBtn = document.getElementById("resetBtn");
-
-    function renderInventory(){
-      setText("gems", save.gems);
-      setText("keys", save.keys);
-      setText("finds", save.stickers.length + save.companions.length + save.decorations.length);
-    }
-
-    function renderMap(){
-      nodePath.innerHTML = "";
-      world.nodes.forEach((node, index) => {
-        const div = document.createElement("div");
-        div.className = "node" + (index === save.portalNode ? " current" : "") + (index > save.portalNode + 1 ? " locked" : "");
-        div.textContent = node.name;
-        nodePath.appendChild(div);
-      });
-    }
-
-    function grantReward(){
-      const reward = world.rewards[Math.floor(Math.random() * world.rewards.length)];
-      if(!save.stickers.includes(reward)) save.stickers.push(reward);
-      save.gems += 2;
-      if(Math.random() > .55) save.keys += 1;
-      save = Save.write(save);
-      return reward;
-    }
-
-    function showNode(){
-      answered = false;
-      choices.innerHTML = "";
-      setText("feedback", "");
-      const node = world.nodes[save.portalNode];
-      setText("scene", node.name);
-
-      if(node.kind === "helper"){
-        setText("prompt", "A friendly pathkeeper gives you a park key and points toward the glowing trail.");
-        if(save.keys < 1){ save.keys = 1; save = Save.write(save); }
-        renderInventory();
-        return;
+    const challenges = [
+      {
+        title: 'Clock Gate',
+        text: 'The gate opens at quarter past 3. Which time matches?',
+        choices: ['3:15', '3:45', '2:15'],
+        answer: '3:15'
+      },
+      {
+        title: 'Weather Bridge',
+        text: 'Dark clouds gather and thunder rumbles. What should the hikers do first?',
+        choices: ['Find a safe place indoors', 'Stand under a tall tree', 'Keep swimming'],
+        answer: 'Find a safe place indoors'
+      },
+      {
+        title: 'Map Meadow',
+        text: 'A map key shows a tree symbol for forest. Where should the class go to find trees?',
+        choices: ['Forest', 'Lake', 'Road'],
+        answer: 'Forest'
       }
+    ];
 
-      if(node.kind === "chest"){
-        setText("prompt", `A carved chest waits beside the trail. It needs ${node.cost} gems to open.`);
-        const open = makeButton("Open the chest", "choice-btn");
-        open.addEventListener("click", () => {
-          if(save.gems >= node.cost){
-            save.gems -= node.cost;
-            const reward = grantReward();
-            setText("feedback", `The chest opens. You found ${reward}.`);
-            answered = true;
-            renderInventory();
+    function showChallenge(index) {
+      const challenge = challenges[index % challenges.length];
+      const choices = [...challenge.choices].sort(() => Math.random() - 0.5);
+      panel.innerHTML = `
+        <h2>${challenge.title}</h2>
+        <p>${challenge.text}</p>
+        <div class="choice-row">
+          ${choices.map(choice => `<button data-choice="${choice}">${choice}</button>`).join('')}
+        </div>
+      `;
+      panel.querySelectorAll('button').forEach(button => {
+        button.addEventListener('click', () => {
+          if (button.dataset.choice === challenge.answer) {
+            gems += 2;
+            localStorage.setItem('portalParkGems', gems);
+            gemCount.textContent = gems;
+            panel.innerHTML = `<h2>Spark gems found!</h2><p>You earned 2 spark gems. Choose another stop or return to the Purple Door.</p><div class="choice-row"><a class="back-link" href="../index.html">Return to the Purple Door</a></div>`;
           } else {
-            setText("feedback", "You need more gems before the chest will open.");
+            panel.innerHTML = `<h2>The path shimmered.</h2><p>Try another answer or choose a different stop. The park gives second chances.</p><div class="choice-row"><button id="tryAgain">Try Again</button></div>`;
+            document.querySelector('#tryAgain').addEventListener('click', () => showChallenge(index));
           }
         });
-        choices.appendChild(open);
-        return;
-      }
-
-      currentQuestion = QuestionEngine.pick(world.questions, { category: node.category });
-      setText("prompt", currentQuestion.prompt);
-      currentQuestion.choices.forEach(choice => {
-        const button = makeButton(choice.label);
-        button.addEventListener("click", () => checkAnswer(choice.label));
-        choices.appendChild(button);
       });
     }
 
-    function checkAnswer(answer){
-      if(answered) return;
-      if(QuestionEngine.isCorrect(currentQuestion, answer)){
-        const reward = grantReward();
-        setText("feedback", `Path opened. You earned 2 gems and found ${reward}.`);
-        answered = true;
-      } else {
-        if(save.gems > 0){
-          save.gems -= 1;
-          setText("feedback", "The path shimmered, but stayed closed. A gem helped you try again.");
-        } else {
-          setText("feedback", "The path stayed closed. Try a different choice.");
-        }
-        save = Save.write(save);
-      }
-      renderInventory();
-    }
+    const scene = [
+      { type: 'sprite', asset: 'map.treeTall', x: 10, y: 22, size: '118px' },
+      { type: 'sprite', asset: 'map.treePinesSmall', x: 22, y: 76, size: '150px' },
+      { type: 'sprite', asset: 'map.lake', x: 78, y: 28, size: '190px' },
+      { type: 'sprite', asset: 'map.castle', x: 86, y: 72, size: '145px' },
+      { type: 'sprite', asset: 'map.flag', x: 48, y: 18, size: '86px' },
+      { type: 'sprite', asset: 'map.campfire', x: 36, y: 74, size: '82px' }
+    ];
 
-    nextBtn.addEventListener("click", () => {
-      const node = world.nodes[save.portalNode];
-      if(node.kind !== "helper" && node.kind !== "chest" && !answered){
-        setText("feedback", "Solve this trail challenge first.");
-        return;
-      }
-      if(save.portalNode < world.nodes.length - 1){ save.portalNode += 1; }
-      else { save.portalNode = 0; }
-      save = Save.write(save);
-      renderInventory();
-      renderMap();
-      showNode();
-    });
-
-    hintBtn.addEventListener("click", () => {
-      if(!currentQuestion || answered){ setText("feedback", "The trail is already clear."); return; }
-      if(save.gems < 1){ setText("feedback", "You need 1 gem for a hint."); return; }
-      save.gems -= 1;
-      save = Save.write(save);
-      renderInventory();
-      setText("feedback", "Hint: read every choice slowly, then remove one that cannot fit.");
-    });
-
-    resetBtn.addEventListener("click", () => {
-      save = Save.reset();
-      renderInventory();
-      renderMap();
-      showNode();
-    });
-
-    getJSON("../data/portalpark.json").then(data => {
-      world = data;
-      renderInventory();
-      renderMap();
-      showNode();
-    });
+    buildScene(stage, scene);
+    spawnNode(stage, { x: 20, y: 48, number: 1, label: 'Clock Gate' }, () => showChallenge(0));
+    spawnNode(stage, { x: 50, y: 42, number: 2, label: 'Weather Bridge' }, () => showChallenge(1));
+    spawnNode(stage, { x: 76, y: 55, number: 3, label: 'Map Meadow' }, () => showChallenge(2));
   </script>
 </body>
 </html>
