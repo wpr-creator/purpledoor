@@ -6,134 +6,116 @@
   <title>Mrs. Rogers’ Purple Door Portals</title>
   <link rel="stylesheet" href="css/global.css" />
 </head>
-<body class="portal-home">
-  <section class="name-gate" id="nameGate" aria-label="Name the traveler">
-    <div class="name-gate-sky" aria-hidden="true">
-      <img class="gate-star gate-star-a" src="assets/kenney/2D assets/Simple Space/PNG/Retina/star_large.png" alt="">
-      <img class="gate-star gate-star-b" src="assets/kenney/2D assets/Simple Space/PNG/Retina/star_medium.png" alt="">
-      <img class="gate-magic gate-magic-a" src="assets/kenney/2D assets/Particle Pack/PNG (Transparent)/magic_04.png" alt="">
-      <img class="gate-magic gate-magic-b" src="assets/kenney/2D assets/Particle Pack/PNG (Transparent)/spark_07.png" alt="">
-    </div>
+<body>
+  <main id="app" class="app-shell">
 
-    <div class="name-card" id="nameCard">
-      <p class="gate-eyebrow">THE PORTALS ARE OPENING</p>
-      <h1>TRAVELER, WHAT IS YOUR NAME?</h1>
-      <form id="nameForm" class="name-form">
-        <label class="visually-hidden" for="playerName">First name</label>
-        <input id="playerName" name="playerName" type="text" maxlength="14" autocomplete="off" placeholder="FIRST NAME" required />
-        <button type="submit">LIGHT THE DOOR</button>
-      </form>
-      <p class="gate-small">A title will find you.</p>
-    </div>
+    <!-- NAME INTRO -->
+    <section id="introScreen" class="screen intro-screen active" aria-label="Enter the Purple Door">
+      <div class="space-layer stars"></div>
+      <div class="space-layer particles"></div>
 
-    <div class="title-reveal hidden" id="titleReveal">
-      <p class="gate-eyebrow">NEW LEGEND FOUND</p>
-      <h2 id="revealName">THE GREAT</h2>
-      <div class="reveal-crest">
-        <img src="assets/kenney/2D assets/Monster Builder Pack/PNG/Default/body_purpleA.png" alt="">
+      <div class="intro-card">
+        <p class="mini-kicker">THE PORTALS ARE OPENING</p>
+        <h1>MRS. ROGERS’ PURPLE DOOR PORTALS</h1>
+        <p class="portal-line">EVERY PORTAL LEADS SOMEWHERE STRANGE.</p>
+
+        <form id="nameForm" class="name-form">
+          <label for="playerName">TRAVELER, WHAT IS YOUR FIRST NAME?</label>
+          <input id="playerName" name="playerName" maxlength="14" autocomplete="off" required />
+          <button type="submit" class="portal-button">OPEN THE FIRST DOOR</button>
+        </form>
+
+        <button id="skipIntroBtn" class="small-link" type="button">I ALREADY HAVE A NAME</button>
       </div>
-      <p id="revealLine">YOUR STORY BEGINS NOW.</p>
-      <button id="enterUniverse" type="button">ENTER THE PORTALS</button>
-    </div>
-  </section>
-  <main class="portal-stage" aria-label="Mrs. Rogers’ Purple Door Portals">
-
-    <section class="sky-layer" aria-hidden="true">
-      <img class="planet planet-a" src="assets/kenney/2D assets/Planets/Planets/planet08.png" alt="">
-      <img class="planet planet-b" src="assets/kenney/2D assets/Planets/Planets/planet03.png" alt="">
-      <img class="space-star star-a" src="assets/kenney/2D assets/Simple Space/PNG/Retina/star_large.png" alt="">
-      <img class="space-star star-b" src="assets/kenney/2D assets/Simple Space/PNG/Retina/star_medium.png" alt="">
-      <img class="space-star star-c" src="assets/kenney/2D assets/Simple Space/PNG/Retina/star_small.png" alt="">
-      <img class="mist mist-a" src="assets/kenney/2D assets/Particle Pack/PNG (Transparent)/light_01.png" alt="">
-      <img class="mist mist-b" src="assets/kenney/2D assets/Particle Pack/PNG (Transparent)/magic_03.png" alt="">
-      <img class="mist mist-c" src="assets/kenney/2D assets/Particle Pack/PNG (Transparent)/spark_05.png" alt="">
     </section>
 
-    <header class="portal-title">
-      <p class="eyebrow">ENTER THE CHAMBER</p>
-      <h1>MRS. ROGERS’ PURPLE DOOR PORTALS</h1>
-      <p class="tagline">EVERY PORTAL LEADS SOMEWHERE STRANGE.</p>
-    </header>
+    <!-- TITLE REVEAL -->
+    <section id="revealScreen" class="screen reveal-screen" aria-label="Title unlocked">
+      <div class="space-layer stars"></div>
+      <div class="reveal-burst"></div>
 
-    <section class="world-scene" aria-label="Choose a portal">
-      <div class="portal-chamber" aria-hidden="true">
-        <div class="portal-ring portal-ring-one"></div>
-        <div class="portal-ring portal-ring-two"></div>
-        <div class="portal-core">
-          <div class="purple-door">
-            <div class="door-glow"></div>
-            <div class="door-shape">
-              <div class="door-window"></div>
-              <div class="door-knob"></div>
-            </div>
+      <div class="reveal-card">
+        <p class="mini-kicker">TITLE UNLOCKED</p>
+        <h2 id="revealName">TRAVELER</h2>
+        <h3 id="revealTitle">THE GREAT</h3>
+        <div class="familiar-row">
+          <img id="revealFamiliar" src="assets/kenney/2D assets/Monster Builder Pack/PNG/Default/body_blueA.png" alt="" />
+          <p id="familiarText">A STRANGE ALLY HAS JOINED YOU.</p>
+        </div>
+        <button id="enterHubBtn" class="portal-button">ENTER THE PORTALS</button>
+      </div>
+    </section>
+
+    <!-- PORTAL HUB -->
+    <section id="hubScreen" class="screen hub-screen" aria-label="Purple Door Portals">
+      <div class="sky-layer sky-stars"></div>
+      <div class="sky-layer sky-glow"></div>
+      <img class="planet planet-a" src="assets/kenney/2D assets/Planets/Planets/planet04.png" alt="" />
+      <img class="planet planet-b" src="assets/kenney/2D assets/Planets/Planets/planet08.png" alt="" />
+      <img class="spark spark-a" src="assets/kenney/2D assets/Particle Pack/PNG (Transparent)/magic_01.png" alt="" />
+      <img class="spark spark-b" src="assets/kenney/2D assets/Particle Pack/PNG (Transparent)/spark_04.png" alt="" />
+
+      <header class="hub-header">
+        <p class="mini-kicker">PORTAL CHAMBER ACTIVE</p>
+        <h1>MRS. ROGERS’ PURPLE DOOR PORTALS</h1>
+        <p id="playerStatus" class="player-status">WELCOME, TRAVELER.</p>
+      </header>
+
+      <section class="portal-stage">
+        <a class="world-portal word" href="games/wordquest.html" aria-label="Enter Word Quest">
+          <div class="portal-orb"></div>
+          <div class="world-sign">
+            <h2>WORD QUEST</h2>
+            <p>THE LIBRARY WHISPERS AGAIN</p>
           </div>
-        </div>
-        <img class="chamber-spark spark-one" src="assets/kenney/2D assets/Particle Pack/PNG (Transparent)/star_05.png" alt="">
-        <img class="chamber-spark spark-two" src="assets/kenney/2D assets/Particle Pack/PNG (Transparent)/spark_07.png" alt="">
-      </div>
+        </a>
 
-      <a class="portal-landmark word-portal" href="games/wordquest.html" aria-label="Enter Word Quest">
-        <div class="landmark-orb">
-          <img src="assets/kenney/2D assets/Letter Tiles Redux/PNG/Default/tile_001.png" alt="">
+        <div class="door-chamber" aria-hidden="true">
+          <div class="door-glow"></div>
+          <div class="purple-door">
+            <div class="door-panel"></div>
+            <div class="door-knob"></div>
+          </div>
+          <div class="rune-ring ring-one"></div>
+          <div class="rune-ring ring-two"></div>
         </div>
-        <div class="landmark-plaque">
-          <h2>WORD QUEST</h2>
-          <p>THE LIBRARY WHISPERS AGAIN</p>
-        </div>
-      </a>
 
-      <a class="portal-landmark math-portal" href="games/mathquest.html" aria-label="Enter Monster Math Lab">
-        <div class="landmark-orb">
-          <img src="assets/kenney/2D assets/Monster Builder Pack/PNG/Default/body_blueA.png" alt="">
-        </div>
-        <div class="landmark-plaque">
-          <h2>MONSTER MATH LAB</h2>
-          <p>ENERGY LEVELS RISING</p>
-        </div>
-      </a>
+        <a class="world-portal math" href="games/mathquest.html" aria-label="Enter Monster Math Lab">
+          <div class="portal-orb"></div>
+          <div class="world-sign">
+            <h2>MONSTER MATH LAB</h2>
+            <p>ENERGY LEVELS RISING</p>
+          </div>
+        </a>
 
-      <a class="portal-landmark paths-portal" href="games/portalpark.html" aria-label="Enter The Lost Paths">
-        <div class="landmark-orb">
-          <img src="assets/kenney/2D assets/Map Pack/PNG/mapTile_017.png" alt="">
+        <a class="world-portal paths" href="games/portalpark.html" aria-label="Enter The Lost Paths">
+          <div class="portal-orb"></div>
+          <div class="world-sign">
+            <h2>THE LOST PATHS</h2>
+            <p>SOME DOORS SHOULD STAY CLOSED</p>
+          </div>
+        </a>
+      </section>
+
+      <section class="bottom-hud" aria-label="Portal log">
+        <div>
+          <strong>LEGENDS</strong>
+          <span id="hudTitle">AWAKENING</span>
         </div>
-        <div class="landmark-plaque">
-          <h2>THE LOST PATHS</h2>
-          <p>SOME DOORS SHOULD STAY CLOSED</p>
+        <div>
+          <strong>STRANGE ALLIES</strong>
+          <span id="hudFamiliar">UNKNOWN</span>
         </div>
-      </a>
+        <div>
+          <strong>PORTALS OPENED</strong>
+          <span>0 / 3</span>
+        </div>
+      </section>
 
-      <div class="floating-island island-left" aria-hidden="true">
-        <img src="assets/kenney/2D assets/Cartography Pack/PNG/Retina/treePinesSmall.png" alt="">
-      </div>
-
-      <div class="floating-island island-right" aria-hidden="true">
-        <img src="assets/kenney/2D assets/Cartography Pack/PNG/Retina/castleWideLow.png" alt="">
-      </div>
-
-      <div class="tiny-companion companion-one" aria-hidden="true">
-        <img src="assets/kenney/2D assets/Monster Builder Pack/PNG/Default/body_greenB.png" alt="">
-      </div>
-      <div class="tiny-companion companion-two" aria-hidden="true">
-        <img src="assets/kenney/2D assets/Shape Characters/PNG/Default/shapeCircle.png" alt="">
-      </div>
+      <button id="resetProfileBtn" class="reset-profile" type="button">RESET NAME</button>
     </section>
-
-    <section class="portal-status" aria-label="Portal status">
-      <div class="status-chip">
-        <strong>LEGENDS</strong>
-        <span id="legendStatus">AWAITING FIRST TITLE</span>
-      </div>
-      <div class="status-chip">
-        <strong>STRANGE ALLIES</strong>
-        <span id="allyStatus">NONE DISCOVERED YET</span>
-      </div>
-      <div class="status-chip">
-        <strong>PORTALS OPENED</strong>
-        <span id="portalStatusText">0 / 3</span>
-      </div>
-    </section>
-
   </main>
-  <script src="js/playerProfile.js"></script>
+
+  <script src="js/app.js"></script>
 </body>
 </html>
