@@ -1,17 +1,16 @@
-const scene = document.querySelector(".scene-stage");
+(() => {
+  const gates = document.querySelectorAll('.world-gate');
+  const messages = {
+    'Word Quest': 'Pages are drifting loose in the Word Realm.',
+    'Monster Math Lab': 'Something odd is counting in the lab.',
+    'The Wild Doors': 'Every trail hides a different kind of challenge.'
+  };
 
-if (scene && window.matchMedia("(pointer:fine)").matches) {
-  scene.addEventListener("pointermove", (event) => {
-    const rect = scene.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width - 0.5;
-    const y = (event.clientY - rect.top) / rect.height - 0.5;
-
-    scene.style.setProperty("--mouse-x", x.toFixed(3));
-    scene.style.setProperty("--mouse-y", y.toFixed(3));
-
-    document.querySelectorAll(".planet").forEach((planet, index) => {
-      const depth = index === 0 ? 8 : 5;
-      planet.style.transform = `translate(${x * depth}px, ${y * depth}px)`;
+  gates.forEach(gate => {
+    gate.addEventListener('mouseenter', () => {
+      const label = gate.querySelector('.gate-plaque')?.textContent?.trim();
+      if (!label) return;
+      gate.setAttribute('data-whisper', messages[label] || 'A door is waking up.');
     });
   });
-}
+})();

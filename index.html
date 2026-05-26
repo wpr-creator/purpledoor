@@ -5,82 +5,94 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Purple Door Universe</title>
   <link rel="stylesheet" href="css/global.css" />
-  <link rel="stylesheet" href="css/home-scene.css" />
 </head>
-<body class="home-body">
-  <main class="universe-shell" aria-label="The Purple Door Universe">
-    <section class="scene-stage" aria-label="Purple Door Universe home scene">
-      <div class="sky-layer" aria-hidden="true">
-        <img class="planet planet-a" src="assets/kenney/2D assets/Planets/Planets/planet08.png" alt="">
-        <img class="planet planet-b" src="assets/kenney/2D assets/Planets/Planets/planet03.png" alt="">
-        <img class="space-star star-a" src="assets/kenney/2D assets/Simple Space/PNG/Retina/star_large.png" alt="">
-        <img class="space-star star-b" src="assets/kenney/2D assets/Simple Space/PNG/Retina/star_medium.png" alt="">
-        <img class="space-star star-c" src="assets/kenney/2D assets/Simple Space/PNG/Retina/star_small.png" alt="">
-        <img class="magic magic-a" src="assets/kenney/2D assets/Particle Pack/PNG (Transparent)/magic_04.png" alt="">
-        <img class="magic magic-b" src="assets/kenney/2D assets/Particle Pack/PNG (Transparent)/spark_04.png" alt="">
-      </div>
+<body class="home-world">
+  <main class="universe-stage" aria-label="The Purple Door Universe">
+    <div class="sky-layer stars-a"></div>
+    <div class="sky-layer stars-b"></div>
 
-      <header class="title-lockup">
-        <p class="eyebrow">Mrs. Rogers’</p>
-        <h1>The Purple Door Universe</h1>
-      </header>
+    <img class="planet planet-one" src="assets/kenney/2D assets/Planets/Planets/planet08.png" alt="" />
+    <img class="planet planet-two" src="assets/kenney/2D assets/Planets/Planets/planet03.png" alt="" />
+    <img class="planet planet-three" src="assets/kenney/2D assets/Planets/Planets/planet05.png" alt="" />
 
-      <section class="world-board" aria-label="Choose a world">
-        <div class="island-shadow" aria-hidden="true"></div>
-        <div class="island-base" aria-hidden="true"></div>
+    <img class="ship drift-ship" src="assets/kenney/2D assets/Simple Space/PNG/Retina/ship_H.png" alt="" />
+    <img class="spark spark-one" src="assets/kenney/2D assets/Particle Pack/PNG (Transparent)/magic_04.png" alt="" />
+    <img class="spark spark-two" src="assets/kenney/2D assets/Particle Pack/PNG (Transparent)/star_05.png" alt="" />
+    <img class="spark spark-three" src="assets/kenney/2D assets/Particle Pack/PNG (Transparent)/light_02.png" alt="" />
 
-        <a class="world-node word-node" href="games/wordquest.html" aria-label="Enter Word Quest">
-          <span class="node-glow"></span>
-          <span class="node-building library-building">
-            <span class="book-stack book-one"></span>
-            <span class="book-stack book-two"></span>
-            <span class="book-roof"></span>
-          </span>
-          <span class="node-plaque">Word Quest</span>
-        </a>
+    <section class="title-lockup" aria-label="Title">
+      <p class="eyebrow">Mrs. Rogers’</p>
+      <h1>The Purple Door Universe</h1>
+    </section>
 
-        <a class="world-node math-node" href="games/mathquest.html" aria-label="Enter Math Quest">
-          <span class="node-glow"></span>
-          <span class="node-building math-building">
-            <span class="gear-dot dot-one"></span>
-            <span class="gear-dot dot-two"></span>
-            <span class="gear-dot dot-three"></span>
-          </span>
-          <span class="node-plaque">Math Quest</span>
-        </a>
+    <section class="world-island" aria-label="World map">
+      <div class="island-shadow"></div>
+      <div class="island-base"></div>
+      <div class="island-top"></div>
+      <div class="path-ring"></div>
 
-        <a class="world-node wonder-node" href="games/portalpark.html" aria-label="Enter Wonder Trails">
-          <span class="node-glow"></span>
-          <span class="node-building trail-building">
-            <span class="trail-map"></span>
-            <span class="trail-flag"></span>
-          </span>
-          <span class="node-plaque">Wonder Trails</span>
-        </a>
+      <a class="world-gate word-gate" href="games/wordquest.html" aria-label="Enter Word Quest">
+        <span class="gate-glow"></span>
+        <span class="mini-building library-building">
+          <span class="roof"></span>
+          <span class="tower tower-left"></span>
+          <span class="tower tower-right"></span>
+          <span class="window w1"></span>
+          <span class="window w2"></span>
+        </span>
+        <span class="gate-plaque">Word Quest</span>
+      </a>
 
-        <div class="purple-door-landmark" aria-hidden="true">
-          <div class="door-aura"></div>
-          <div class="door-frame">
-            <div class="door-panel">
-              <span class="door-arch"></span>
-              <span class="door-knob"></span>
-            </div>
-          </div>
-          <div class="door-steps"></div>
+      <a class="world-gate math-gate" href="games/mathquest.html" aria-label="Enter Monster Math Lab">
+        <span class="gate-glow"></span>
+        <span class="lab-building">
+          <span class="lab-dome"></span>
+          <span class="lab-body"></span>
+          <img class="lab-monster body" src="assets/kenney/2D assets/Monster Builder Pack/PNG/Default/body_blueC.png" alt="" />
+          <img class="lab-monster eye" src="assets/kenney/2D assets/Monster Builder Pack/PNG/Default/eye_cute_light.png" alt="" />
+        </span>
+        <span class="gate-plaque">Monster Math Lab</span>
+      </a>
+
+      <a class="world-gate wild-gate" href="games/portalpark.html" aria-label="Enter The Wild Doors">
+        <span class="gate-glow"></span>
+        <span class="wild-camp">
+          <span class="tent"></span>
+          <span class="sign-post"></span>
+          <span class="sign-board"></span>
+          <span class="tiny-fire"></span>
+        </span>
+        <span class="gate-plaque">The Wild Doors</span>
+      </a>
+
+      <section class="door-tower" aria-label="Purple Door">
+        <div class="tower-aura"></div>
+        <div class="tower-spire"></div>
+        <div class="tower-body">
+          <div class="purple-door"><span class="door-shine"></span><span class="door-knob"></span></div>
         </div>
-
-        <img class="companion companion-one" src="assets/kenney/2D assets/Monster Builder Pack/PNG/Default/body_whiteD.png" alt="" aria-hidden="true">
-        <img class="companion companion-two" src="assets/kenney/2D assets/Shape Characters/PNG/Default/shapeCircle_blue.png" alt="" aria-hidden="true">
+        <div class="tower-steps"></div>
       </section>
 
-      <footer class="scene-footer">
-        <a class="small-link" href="games/wordquest.html">Start with Words</a>
-        <a class="small-link" href="games/mathquest.html">Start with Numbers</a>
-        <a class="small-link" href="games/portalpark.html">Start Exploring</a>
-      </footer>
+      <div class="companion c1" aria-hidden="true">
+        <img class="monster-body" src="assets/kenney/2D assets/Monster Builder Pack/PNG/Default/body_greenB.png" alt="" />
+        <img class="monster-eye" src="assets/kenney/2D assets/Monster Builder Pack/PNG/Default/eye_cute_dark.png" alt="" />
+      </div>
+      <div class="companion c2" aria-hidden="true">
+        <img class="monster-body" src="assets/kenney/2D assets/Monster Builder Pack/PNG/Default/body_yellowA.png" alt="" />
+        <img class="monster-eye" src="assets/kenney/2D assets/Monster Builder Pack/PNG/Default/eye_human_green.png" alt="" />
+      </div>
+
+      <div class="floating-key key-one">◆</div>
+      <div class="floating-key key-two">✦</div>
+    </section>
+
+    <section class="status-strip" aria-label="Adventures">
+      <div class="status-card"><strong>Titles</strong><span>Find your first rank</span></div>
+      <div class="status-card"><strong>Companions</strong><span>Meet the odd little helpers</span></div>
+      <div class="status-card"><strong>Worlds</strong><span>Choose a door to begin</span></div>
     </section>
   </main>
-
   <script src="js/homeScene.js"></script>
 </body>
 </html>
