@@ -7,6 +7,35 @@
   <link rel="stylesheet" href="css/global.css" />
 </head>
 <body class="portal-home">
+  <section class="name-gate" id="nameGate" aria-label="Name the traveler">
+    <div class="name-gate-sky" aria-hidden="true">
+      <img class="gate-star gate-star-a" src="assets/kenney/2D assets/Simple Space/PNG/Retina/star_large.png" alt="">
+      <img class="gate-star gate-star-b" src="assets/kenney/2D assets/Simple Space/PNG/Retina/star_medium.png" alt="">
+      <img class="gate-magic gate-magic-a" src="assets/kenney/2D assets/Particle Pack/PNG (Transparent)/magic_04.png" alt="">
+      <img class="gate-magic gate-magic-b" src="assets/kenney/2D assets/Particle Pack/PNG (Transparent)/spark_07.png" alt="">
+    </div>
+
+    <div class="name-card" id="nameCard">
+      <p class="gate-eyebrow">THE PORTALS ARE OPENING</p>
+      <h1>TRAVELER, WHAT IS YOUR NAME?</h1>
+      <form id="nameForm" class="name-form">
+        <label class="visually-hidden" for="playerName">First name</label>
+        <input id="playerName" name="playerName" type="text" maxlength="14" autocomplete="off" placeholder="FIRST NAME" required />
+        <button type="submit">LIGHT THE DOOR</button>
+      </form>
+      <p class="gate-small">A title will find you.</p>
+    </div>
+
+    <div class="title-reveal hidden" id="titleReveal">
+      <p class="gate-eyebrow">NEW LEGEND FOUND</p>
+      <h2 id="revealName">THE GREAT</h2>
+      <div class="reveal-crest">
+        <img src="assets/kenney/2D assets/Monster Builder Pack/PNG/Default/body_purpleA.png" alt="">
+      </div>
+      <p id="revealLine">YOUR STORY BEGINS NOW.</p>
+      <button id="enterUniverse" type="button">ENTER THE PORTALS</button>
+    </div>
+  </section>
   <main class="portal-stage" aria-label="Mrs. Rogers’ Purple Door Portals">
 
     <section class="sky-layer" aria-hidden="true">
@@ -92,18 +121,19 @@
     <section class="portal-status" aria-label="Portal status">
       <div class="status-chip">
         <strong>LEGENDS</strong>
-        <span>AWAITING FIRST TITLE</span>
+        <span id="legendStatus">AWAITING FIRST TITLE</span>
       </div>
       <div class="status-chip">
         <strong>STRANGE ALLIES</strong>
-        <span>NONE DISCOVERED YET</span>
+        <span id="allyStatus">NONE DISCOVERED YET</span>
       </div>
       <div class="status-chip">
         <strong>PORTALS OPENED</strong>
-        <span>0 / 3</span>
+        <span id="portalStatusText">0 / 3</span>
       </div>
     </section>
 
   </main>
+  <script src="js/playerProfile.js"></script>
 </body>
 </html>
